@@ -10,9 +10,11 @@ sys.path.insert(0, str(ROOT / "scripts"))
 from controller_model import ControllerState, Outcome, decide  # noqa: E402
 from acceptance import (  # noqa: E402
     contains_question,
+    contains_route,
     fallback_is_disclosed,
     interest_is_persisted,
     is_zero_beginner_profile,
+    asks_for_gist,
     unanswered_main_item_has_no_evidence,
 )
 from validate_template import validate  # noqa: E402
@@ -163,6 +165,12 @@ class TemplateTests(unittest.TestCase):
         self.assertTrue(contains_question("你希望用哪种语言？"))
         self.assertFalse(contains_question("设置完成。"))
 
+    def test_acceptance_route_and_gist_are_bilingual(self):
+        self.assertTrue(contains_route("Short term: a\nMid term: b\nLong term: c"))
+        self.assertTrue(contains_route("短期：a\n中期：b\n长期：c"))
+        self.assertTrue(asks_for_gist("你大致读懂了什么？"))
+        self.assertTrue(asks_for_gist("What is the gist?"))
+
     def test_acceptance_handles_equivalent_bilingual_wording(self):
         self.assertTrue(interest_is_persisted("Primary Interest: Coffee and travel photography"))
         self.assertTrue(interest_is_persisted("主要兴趣：咖啡与旅行摄影"))
@@ -170,6 +178,16 @@ class TemplateTests(unittest.TestCase):
         self.assertTrue(fallback_is_disclosed("This is evergreen material, not current news."))
         self.assertTrue(is_zero_beginner_profile("Placement Status: Complete（零基础初始化）\nWorking Level: A1 beginner"))
         self.assertTrue(is_zero_beginner_profile("Placement Status: Not required (zero beginner)\nWorking Level: A1 beginner (initial)"))
+
+    def test_zero_beginner_accepts_english_none_prior_study(self):
+        self.assertTrue(is_zero_beginner_profile(
+            "Prior Study: None\nWorking Level: A1 beginner\nPlacement Status: Complete"))
+        self.assertTrue(is_zero_beginner_profile(
+            "Prior Study: No prior study\nWorking Level: A1 beginner\nPlacement Status: Complete"))
+        self.assertTrue(is_zero_beginner_profile(
+            "Prior Study: 从未学过意大利语\nWorking Level: A1 beginner\nPlacement Status: Complete"))
+        self.assertFalse(is_zero_beginner_profile(
+            "Prior Study: Two years of classes\nWorking Level: A1 beginner\nPlacement Status: Complete"))
 
     def test_briefing_gist_evidence_does_not_fail_unanswered_main_item_check(self):
         mastery = """## Mastery ledger

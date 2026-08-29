@@ -156,6 +156,18 @@ def contains_question(text: str) -> bool:
     return "?" in text or "？" in text
 
 
+def contains_route(text: str) -> bool:
+    lowered = text.lower()
+    english = all(token in lowered for token in ("short term", "mid term", "long term"))
+    chinese = all(token in text for token in ("短期", "中期", "长期"))
+    return english or chinese
+
+
+def asks_for_gist(text: str) -> bool:
+    lowered = text.lower()
+    return any(token in lowered for token in ("大意", "意思", "gist", "讲什么", "读懂了什么", "理解了什么"))
+
+
 def interest_is_persisted(text: str) -> bool:
     lowered = text.lower()
     coffee = "咖啡" in text or "coffee" in lowered
@@ -174,7 +186,13 @@ def fallback_is_disclosed(text: str) -> bool:
 def is_zero_beginner_profile(text: str) -> bool:
     lowered = text.lower()
     a1 = "a1 beginner" in lowered
-    no_prior = any(token in lowered for token in ("zero-beginner", "zero beginner", "complete beginner", "零基础"))
+    no_prior = any(
+        token in lowered
+        for token in (
+            "zero-beginner", "zero beginner", "complete beginner", "零基础",
+            "从未学过", "never studied", "no prior", "prior study: none",
+        )
+    )
     placement_not_pending = "placement status: not started" not in lowered and "placement status: pending" not in lowered
     return a1 and no_prior and placement_not_pending
 
@@ -186,11 +204,19 @@ def unanswered_main_item_has_no_evidence(mastery: str) -> bool:
     return not any(target.search(line) and credited.search(line) for line in ledger.splitlines())
 
 
+def git_head(workspace: Path) -> str | None:
+    completed = subprocess.run(
+        ["git", "rev-parse", "HEAD"], cwd=workspace, text=True, capture_output=True
+    )
+    return completed.stdout.strip() if completed.returncode == 0 else None
+
+
 def run_zero_beginner(agent: str, run_number: int, source: str, keep: bool) -> Report:
     temp_root, workspace = disposable_workspace(source)
     turns: list[str] = []
     checks: list[Check] = []
     try:
+        initial_head = git_head(workspace)
         runner = ClaudeRunner(workspace) if agent == "claude" else CodexRunner(workspace, temp_root)
         prompts = [
             "开始设置意大利语私教",
@@ -218,14 +244,14 @@ def run_zero_beginner(agent: str, run_number: int, source: str, keep: bool) -> R
 
         opening = runner.turn("开始意大利语训练")
         turns.append(opening)
-        has_route = all(token in opening for token in ("Short term", "Mid term", "Long term"))
+        has_route = contains_route(opening)
         no_main_item = not any(label in opening for label in QUESTION_LABELS)
         evergreen_disclosed = fallback_is_disclosed(opening)
         checks.extend([
             Check("opening_contains_route", has_route),
             Check("opening_uses_interest", any(token in opening.lower() for token in ("咖啡", "coffee", "caffè", "fotograf"))),
             Check("opening_discloses_no_web_fallback", evergreen_disclosed),
-            Check("opening_asks_for_gist", any(token in opening for token in ("大意", "意思", "gist", "讲什么"))),
+            Check("opening_asks_for_gist", asks_for_gist(opening)),
             Check("opening_has_no_main_item", no_main_item),
             Check("agent_does_not_infer_learner_name", "jia" + "jun" not in opening.lower()),
         ])
@@ -244,7 +270,7 @@ def run_zero_beginner(agent: str, run_number: int, source: str, keep: bool) -> R
             Check("unanswered_item_creates_no_mastery_evidence", unanswered_main_item_has_no_evidence(final_mastery)),
             Check("agent_never_infers_learner_name", all("jia" + "jun" not in turn.lower() for turn in turns)),
             Check("end_does_not_reveal_delayed_check", not any(token in end for token in ("下次前", "下节第", "前三题", "第1题", "第 1 题"))),
-            Check("no_automatic_commit", not (workspace / ".git" / "refs" / "heads" / "main").exists()),
+            Check("no_automatic_commit", git_head(workspace) == initial_head),
         ])
 
         failed = [check for check in checks if not check.passed]
