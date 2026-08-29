@@ -16,6 +16,9 @@ class Outcome(str, Enum):
     FRESH_SCENE_SUCCESS = "fresh_scene_success"
     LATER_SESSION_SUCCESS = "later_session_success"
     DELAYED_CHECK_FAILURE = "delayed_check_failure"
+    REPAIR_PRESENTED = "repair_presented"
+    REPAIR_SUCCESS = "repair_success"
+    REPAIR_FAILURE = "repair_failure"
 
 
 @dataclass(frozen=True)
@@ -52,18 +55,31 @@ def decide(state: ControllerState, outcome: Outcome) -> Decision:
     if outcome in {Outcome.ASSISTED, Outcome.BLOCKING_ERROR}:
         down_streak = state.difficulty_down_streak + 1
         lower = outcome is Outcome.BLOCKING_ERROR or down_streak >= 2
-        repairs = state.repairs_used + (1 if outcome is Outcome.BLOCKING_ERROR else 0)
-        parked = repairs > 2
         next_state = replace(
             state,
             independent_streak=0,
             difficulty_down_streak=0 if lower else down_streak,
             load=state.load - (1 if lower else 0),
+        )
+        action = "lower_one_variable" if lower else "hold"
+        return Decision(next_state, action, "E1")
+
+    if outcome is Outcome.REPAIR_PRESENTED:
+        return Decision(state, "await_repair_answer", "E0")
+
+    if outcome in {Outcome.REPAIR_SUCCESS, Outcome.REPAIR_FAILURE}:
+        repairs = state.repairs_used + 1
+        parked = repairs > 2
+        next_state = replace(
+            state,
             repairs_used=min(repairs, 2),
             parked=parked,
+            independent_streak=0,
         )
-        action = "park_point" if parked else ("lower_one_variable" if lower else "hold")
-        return Decision(next_state, action, "E1")
+        if parked:
+            return Decision(next_state, "park_point", "E1")
+        evidence = "E2" if outcome is Outcome.REPAIR_SUCCESS else "E1"
+        return Decision(next_state, "continue_after_repair", evidence)
 
     if outcome is Outcome.LOCAL_ERROR:
         return Decision(replace(state, independent_streak=0), "correct_and_delayed_check", "E2")
@@ -82,4 +98,3 @@ def decide(state: ControllerState, outcome: Outcome) -> Decision:
         )
 
     raise ValueError(f"Unsupported outcome: {outcome}")
-

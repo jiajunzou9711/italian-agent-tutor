@@ -46,6 +46,8 @@ The Controller evaluates every answer in a fixed order: task completion, indepen
 ```bash
 python3 scripts/validate_template.py .
 python3 -m unittest discover -s tests -v
+python3 scripts/acceptance.py --agent claude --scenario zero-beginner
+python3 scripts/acceptance.py --all --runs 2
 ```
 
 ## Files / 文件
@@ -58,4 +60,3 @@ python3 -m unittest discover -s tests -v
 - `docs/syllabus.md`: adaptive A1–B2 direction
 
 Licensed under the MIT License.
-

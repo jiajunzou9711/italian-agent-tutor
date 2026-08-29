@@ -18,6 +18,7 @@ REQUIRED = (
     "docs/syllabus.md",
     "session-protocol.md",
     "scripts/controller_model.py",
+    "scripts/acceptance.py",
 )
 
 FORBIDDEN = (
@@ -31,6 +32,7 @@ FORBIDDEN = (
     "2026-" + "12-03",
     "Wembanya" + "ma",
     "Brun" + "son",
+    "Jia" + "jun",
 )
 
 REQUIRED_PROTOCOL_TERMS = (
@@ -40,6 +42,12 @@ REQUIRED_PROTOCOL_TERMS = (
     "unannounced E4 retrieval in a later session",
     "one primary uncertainty",
     "may not silently change the learner's long-term goal",
+    "write `Setup Status: Completed` last",
+    "HARD GATE",
+    "the next correct response is capped at E1",
+    "future session; undisclosed",
+    "enable the daily briefing by default",
+    "never infer the learner's name",
 )
 
 
@@ -59,6 +67,7 @@ def validate(root: Path) -> list[str]:
         if path.is_file()
         and ".git" not in path.parts
         and "__pycache__" not in path.parts
+        and "artifacts" not in path.parts
         and path.suffix in text_suffixes
     ]
     combined = "\n".join(path.read_text(encoding="utf-8") for path in files)

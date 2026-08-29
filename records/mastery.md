@@ -40,10 +40,9 @@ Level mapping: E1 or unstable = Learning; E3 = Pending; E4 = Sealed. A failed un
 - Current load variable: None
 - Consecutive independent successes: 0
 - Consecutive errors or assisted successes: 0
-- Transfer repairs used in current segment: 0
+- Transfer repair responses evaluated in current segment: 0
 - Delayed checks due: None
 
 ## Session log
 
 - No formal sessions recorded.
-
