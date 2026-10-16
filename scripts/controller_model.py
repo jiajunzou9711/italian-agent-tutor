@@ -91,9 +91,11 @@ def decide(state: ControllerState, outcome: Outcome) -> Decision:
         return Decision(replace(state, level="Sealed", independent_streak=0), "space_review", "E4")
 
     if outcome is Outcome.DELAYED_CHECK_FAILURE:
+        # An unprompted failure moves the point down exactly one level.
+        lower_level = {"Sealed": "Pending", "Pending": "Learning"}.get(state.level, state.level)
         return Decision(
-            replace(state, level="Learning", independent_streak=0, load=state.load - 1),
-            "return_to_learning",
+            replace(state, level=lower_level, independent_streak=0, load=state.load - 1),
+            "move_down_one_level",
             "E0",
         )
 

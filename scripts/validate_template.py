@@ -48,6 +48,13 @@ REQUIRED_PROTOCOL_TERMS = (
     "future session; undisclosed",
     "enable the daily briefing by default",
     "never infer the learner's name",
+    "moves the point down exactly one level",
+    "An announced focus counts as a prompt for sealing",
+    "One item credits one point",
+    "Independent fully correct: x/y",
+    "Stale `Learning` points",
+    "never as a separate list",
+    "Keep only the most recent 7 log lines",
 )
 
 

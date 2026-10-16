@@ -19,5 +19,7 @@ Read the files above before a formal session. Detailed behavior belongs only in 
 5. Choose the route from the learner's goal and current mastery, not a fixed calendar. Never change the long-term goal silently.
 6. Write only current learner state and honest evidence. Do not infer listening or speaking ability from text.
 7. At session end update `learner-profile.md` only if a preference or goal changed, and update `records/mastery.md` only where evidence changed. Do not commit automatically.
-8. When the interest briefing is enabled, the session-opening reply must contain the roadmap and briefing only, then ask for the gist. It must not teach the main point or include a main-line exercise.
+8. When the interest briefing is enabled, the session-opening reply must contain the roadmap and briefing only, then ask for the gist. It must not teach the main point or include a main-line exercise. The only permitted addition is the dated-goal line of rule 10, placed first.
 9. Never infer or reuse a learner name from repository authorship, system context, account data, or memory. Use a learner-supplied name, a placeholder, or a neutral third-person fictional name.
+10. A registration deadline, exam date, or decision date in `learner-profile.md` that is past or within 10 days and unresolved is stated on the first line of every session opening until the learner resolves it. Only the learner decides registration.
+11. Level names and movement rules are defined only in `session-protocol.md` Section 7a. Records use them and do not redefine them.

@@ -62,6 +62,14 @@ class ControllerTests(unittest.TestCase):
         self.assertEqual(result.state.level, "Learning")
         self.assertEqual(result.state.load, 0)
 
+    def test_failed_check_on_sealed_drops_only_to_pending(self):
+        result = decide(ControllerState(level="Sealed", load=1), Outcome.DELAYED_CHECK_FAILURE)
+        self.assertEqual(result.state.level, "Pending")
+
+    def test_failure_on_learning_stays_learning(self):
+        result = decide(ControllerState(level="Learning"), Outcome.DELAYED_CHECK_FAILURE)
+        self.assertEqual(result.state.level, "Learning")
+
     def test_third_evaluated_repair_parks_instead_of_looping(self):
         state = ControllerState(repairs_used=2)
         result = decide(state, Outcome.REPAIR_FAILURE)

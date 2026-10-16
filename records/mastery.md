@@ -2,15 +2,7 @@
 
 This is the single current-state record. Keep one line per point and one line per session. Do not turn it into a narrative archive.
 
-## Evidence levels
-
-- E0: untested
-- E1: completed after any linguistic prompt
-- E2: independent here and now
-- E3: independent in a fresh scene
-- E4: independent, unannounced retrieval in a later session
-
-Level mapping: E1 or unstable = Learning; E3 = Pending; E4 = Sealed. A failed unannounced check drops the point to Learning.
+Evidence levels (E0–E4) are defined in `session-protocol.md` Section 7; level names and movement in Section 7a; column meanings, cell length, log retention, and the size budget in Section 11.
 
 ## Route
 
@@ -25,9 +17,9 @@ Level mapping: E1 or unstable = Learning; E3 = Pending; E4 = Sealed. A failed un
 
 ## Mastery ledger
 
-| Point | Level | Last verified | Current edge |
-| --- | --- | --- | --- |
-| Initial placement | Untested | — | Complete onboarding first. |
+| Point | Level | Last verified | Last touched | Current edge |
+| --- | --- | --- | --- | --- |
+| Initial placement | Untested | — | — | Complete onboarding first. |
 
 ## Vocabulary
 

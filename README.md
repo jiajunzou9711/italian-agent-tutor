@@ -29,7 +29,7 @@ An ordinary vocabulary, grammar, or translation question is answered directly an
 
 ## What makes it adaptive / 自适应机制
 
-The Controller evaluates every answer in a fixed order: task completion, independence, error severity, evidence strength, load fit, and next action. Two independent successes raise only one load variable. Errors lower support or trigger at most two transfer items in a new noun, scene, or format. A skill is sealed only by an unannounced independent retrieval in a later session.
+The Controller evaluates every answer in a fixed order: task completion, independence, error severity, evidence strength, load fit, and next action. Two independent successes raise only one load variable. Errors lower support or trigger at most two transfer items in a new noun, scene, or format. A skill is sealed only by an unannounced independent retrieval in a later session, and any unprompted failure moves it down one level. Learning points left untouched for 14 days return as review, and the 85% target is checked against a recorded independent-correct count.
 
 详细规则在 `session-protocol.md`，当前状态在 `records/mastery.md`。
 

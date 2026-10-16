@@ -14,6 +14,10 @@ Exam Date: Not applicable
 
 Exam Requirements Status: Not applicable
 
+Exam Registration Deadline: Not applicable
+
+Exam Registration Status: Not applicable
+
 Prior Study: To be asked
 
 Placement Status: Not started
