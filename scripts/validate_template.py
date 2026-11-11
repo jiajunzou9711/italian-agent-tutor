@@ -51,8 +51,9 @@ REQUIRED_PROTOCOL_TERMS = (
     "moves the point down exactly one level",
     "An announced focus counts as a prompt for sealing",
     "One item credits one point",
-    "Independent fully correct: x/y",
-    "Stale `Learning` points",
+    "Target: x/y | Whole item: a/y",
+    "Repairs and spacing",
+    "syllabus exit criteria",
     "never as a separate list",
     "Keep only the most recent 7 log lines",
 )

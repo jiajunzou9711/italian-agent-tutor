@@ -89,6 +89,8 @@ class ControllerTests(unittest.TestCase):
         self.assertEqual(independent.evidence, "E2")
         local = decide(independent.state, Outcome.LOCAL_ERROR)
         self.assertTrue(local.preserve_main_point)
+        self.assertEqual(local.action, "correct_and_raise_one_variable")
+        self.assertEqual(local.state.load, 1)
         blocking = decide(local.state, Outcome.BLOCKING_ERROR)
         presented = decide(blocking.state, Outcome.REPAIR_PRESENTED)
         self.assertEqual(presented.state.repairs_used, 0)

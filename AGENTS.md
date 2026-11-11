@@ -16,7 +16,7 @@ Read the files above before a formal session. Detailed behavior belongs only in 
 2. A formal session starts only on clear training intent. Answer isolated language questions directly and do not update records.
 3. Run sessions as plain text: one question, one answer, immediate short feedback, then the next question in the same reply.
 4. Apply the Adaptive Controller after every learner answer. Evidence is earned, not inferred. A correct answer following a supplied form or same-frame example is assisted E1, never independent E2.
-5. Choose the route from the learner's goal and current mastery, not a fixed calendar. Never change the long-term goal silently.
+5. Use the syllabus for unit order and current mastery for advancement. Adapt scenes to the learner's goal. Never change the long-term goal silently.
 6. Write only current learner state and honest evidence. Do not infer listening or speaking ability from text.
 7. At session end update `learner-profile.md` only if a preference or goal changed, and update `records/mastery.md` only where evidence changed. Do not commit automatically.
 8. When the interest briefing is enabled, the session-opening reply must contain the roadmap and briefing only, then ask for the gist. It must not teach the main point or include a main-line exercise. The only permitted addition is the dated-goal line of rule 10, placed first.

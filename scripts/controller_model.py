@@ -41,7 +41,7 @@ class Decision:
 
 
 def decide(state: ControllerState, outcome: Outcome) -> Decision:
-    if outcome is Outcome.INDEPENDENT:
+    if outcome in {Outcome.INDEPENDENT, Outcome.LOCAL_ERROR}:
         streak = state.independent_streak + 1
         raised = streak >= 2
         next_state = replace(
@@ -50,7 +50,11 @@ def decide(state: ControllerState, outcome: Outcome) -> Decision:
             difficulty_down_streak=0,
             load=state.load + (1 if raised else 0),
         )
-        return Decision(next_state, "raise_one_variable" if raised else "continue", "E2")
+        if outcome is Outcome.LOCAL_ERROR:
+            action = "correct_and_raise_one_variable" if raised else "correct_and_delayed_check"
+        else:
+            action = "raise_one_variable" if raised else "continue"
+        return Decision(next_state, action, "E2")
 
     if outcome in {Outcome.ASSISTED, Outcome.BLOCKING_ERROR}:
         down_streak = state.difficulty_down_streak + 1
@@ -80,9 +84,6 @@ def decide(state: ControllerState, outcome: Outcome) -> Decision:
             return Decision(next_state, "park_point", "E1")
         evidence = "E2" if outcome is Outcome.REPAIR_SUCCESS else "E1"
         return Decision(next_state, "continue_after_repair", evidence)
-
-    if outcome is Outcome.LOCAL_ERROR:
-        return Decision(replace(state, independent_streak=0), "correct_and_delayed_check", "E2")
 
     if outcome is Outcome.FRESH_SCENE_SUCCESS:
         return Decision(replace(state, level="Pending", independent_streak=0), "park_pending", "E3")

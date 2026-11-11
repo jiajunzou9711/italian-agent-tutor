@@ -26,7 +26,7 @@ When the learner supplies an interest topic, enable the daily briefing by defaul
 
 After the last answer, complete setup as one ordered write operation. Route authority: only `records/mastery.md` stores the operational Short/Mid/Long route; do not add a second Route section to `learner-profile.md`.
 
-- If the learner reports no prior Italian, set placement complete, working level A1 beginner, and start from the first useful A1 communication point. Do not force a test of unknown material.
+- If the learner reports no prior Italian, set placement complete, working level A1 beginner, and initialize U1 with its required points at `Untested` and its Output task open. Do not force a test of unknown material.
 - If the learner has prior study, set placement pending and run Section 3 before normal lessons.
 
 Generate route statements only after zero-beginner initialization or placement:
@@ -39,11 +39,11 @@ Write in this order:
 
 1. Write all learner fields to `learner-profile.md`, leaving `Setup Status: Not completed`.
 2. Write the interest choice to `config/daily-briefing.md`.
-3. Replace all three pending route lines, the onboarding queue, and initial ledger row in `records/mastery.md` with concrete learner-specific current state.
+3. Replace the onboarding queue and initial ledger row. When placement is complete, fill the main-line unit, required points, Output status, and all three route lines in `records/mastery.md`. If placement is pending, record it as the next action and fill the unit and route when Section 3 ends.
 4. Re-read all three files. If any required write is missing or they disagree, keep setup incomplete and repair the missing state before replying.
 5. Only after verification, write `Setup Status: Completed` last.
 
-Setup is complete only when all required profile/config fields and all three mastery route lines are concrete. Training intent while the state is inconsistent resumes setup; it never starts a lesson.
+Setup is complete only when profile, configuration, and mastery agree. For pending placement, training intent resumes placement. Normal lessons require completed placement and a concrete unit and route.
 
 ## 3. Placement for prior learners
 
@@ -55,7 +55,7 @@ Run one item per turn, with no teaching inside the scored window:
 4. One free production of three to five sentences.
 5. Two correction items, one at a time.
 
-Stop increasing difficulty once a clear productive ceiling appears. Assign the working level conservatively from independent production, not recognition. Record only high-value gaps and current ability; do not preserve a full diagnostic transcript.
+Stop increasing difficulty once a clear productive ceiling appears. Assign the working level conservatively from independent production, not recognition. Record only high-value gaps and current ability. Select the starting unit under the syllabus and create its required ledger rows. Credit each point and the unit Output task only where the placement supplied matching independent evidence. Keep earlier gaps in the repair queue. Do not preserve a full diagnostic transcript.
 
 ## 4. Formal session start
 
@@ -63,18 +63,19 @@ Read, in order: `docs/syllabus.md`, `learner-profile.md`, `config/daily-briefing
 
 **Dated goal items.** If `learner-profile.md` records an exam registration deadline, an exam date, or a decision date that is past or within 10 days and still unresolved, the first line of the opening reply states it with its date, before the roadmap. Repeat this at every session start until the learner resolves it. Only the learner decides registration; state the date and what is missing.
 
-**Stale points.** Before choosing today's focus, check the ledger for `Learning` points whose `Last touched` date is 14 days or more in the past. If one is closer to the learner's goal than the current focus, make it today's focus or one of today's review items, and say which.
+**Main line.** Choose a point in the current unit or its Output task from `records/mastery.md`. For older copies with no unit pointer or tags, map relevant existing ledger points to the syllabus while preserving their evidence and level, then choose the earliest unfinished unit in the placement-supported route. Treat undocumented Output tasks as open. Use earlier-unit repairs in review slots only. Parked points wait for their unit or a free slot. Announce a review slot without identifying the exact point to be retrieved.
 
 Open with:
 
 ```text
 ## 今天练什么 / Today's focus
-- <one or two current points and why>
+- <current focus and why>
 
 ## 状态 / Position
 - <working level and concrete current edge>
 
 ## 路线 / Route
+- Current unit: <name, points at Pending or above x/y, Output status>
 - Short term: ...
 - Mid term: ...
 - Long term: ...
@@ -101,7 +102,7 @@ One question, one answer. After every learner answer, the same reply gives one b
 
 Use functional labels such as `[中译意 / Translate]`, `[填空 / Complete]`, `[问答 / Respond]`, `[改错 / Correct]`, and `[阅读理解 / Read]`. Default output is Italian only unless the task requires otherwise.
 
-Keep one main point alive across a useful scene, while changing noun, purpose, or format. Do not use the same lexical or meaning frame more than twice in a row.
+Keep one main point alive across a useful scene, while changing noun, purpose, or format. Do not use the same lexical or meaning frame more than twice in a row, or the same label more than three times in a row. By the eighth item, include at least one unseen reading comprehension item and one multi-sentence writing item. For beginners, use simple texts and short sentences at the demonstrated level.
 
 For a genuinely new point, give only the form, one example, and the boundary needed to attempt the first item. Because that scaffolding supplies the same construction or answer frame, the next correct response is capped at E1. Obtain E2 only later with an unprompted item whose answer frame was not just supplied.
 
@@ -115,21 +116,26 @@ After every answer, evaluate privately in this fixed order:
 2. **Independence:** Was it independent, or did any linguistic hint supply part of the answer?
 3. **Severity:** Is the error local, or does it block the current target or communication?
 4. **Evidence:** E1 assisted; E2 independent now; E3 independent in a fresh scene; E4 unannounced independent retrieval in a later session.
-5. **Load fit:** Was the item near an estimated 85% chance of a fully correct answer for this learner now?
+5. **Load fit:** Was the primary uncertainty near an estimated 85% chance of independent success for this learner now?
 6. **Adjustment:** Raise, hold, or lower exactly one load variable.
 7. **Direction:** Continue, repair, schedule a delayed check, change scene, park the point, or move to the next point.
 
 Load variables: clause length, support amount, scene novelty, one new word, one communicative purpose, retrieval mode, person, or number.
 
-**85% is measured, not guessed.** The target comes from Wilson et al. 2019 (*Nature Communications*, "The Eighty Five Percent Rule for optimal learning"), derived for binary classification tasks trained by gradient descent; applying it to language tutoring is an extrapolation, so it is a working target, not a law. The tutor cannot estimate a probability item by item, so check it on the record: count items answered fully correct and independently (E2 or higher) over items attempted, per segment. Over a segment, below about 4 of 6 → lower one load variable for the next segment; 6 of 6 → raise one. The count appears in every checkpoint line (Section 8) and the session total goes in the log line.
+**85% is measured, not guessed.** The target comes from Wilson et al. 2019 (*Nature Communications*, "The Eighty Five Percent Rule for optimal learning"), derived for binary classification tasks trained by gradient descent; applying it to language tutoring is an extrapolation, so it is a working target, not a law. Track both rates in each checkpoint and session log. Both use the same denominator of valid attempted items. Assisted answers stay out of both numerators.
+
+- **Target rate:** independent success (E2 or higher) on the primary uncertainty, including answers with unrelated local errors. Below about 4 of 6, lower the responsible load variable. At 6 of 6, raise one.
+- **Whole-item rate:** fully correct independent responses. Record it for feedback.
+
+Choose one uncertainty using the latest scoped evidence. Keep demonstrated message complexity and purpose as the background. If the learner reports that work is too easy or repetitive, reassess before the next item and resume at the demonstrated edge with one controlled challenge.
 
 Controller invariants:
 
 - Every item has one primary uncertainty; other material should already be usable.
-- Two consecutive independent successes at the edge raise exactly one load variable.
-- Two consecutive errors or assisted successes lower exactly one load variable.
+- Two consecutive independent successes on the same target raise one load variable or end direct targeting. Apply at most one adjustment when the streak and checkpoint rules coincide.
+- Two consecutive blocking failures or assisted target successes lower the responsible variable. Apply a single adjustment if an immediate repair already lowered that variable for the same answer.
 - A hinted success never rises above E1. A supplied target form, same construction or answer frame, same-frame example, partial construction, answer-bearing gloss, or model answer is linguistic assistance; the next correct response is capped at E1.
-- A local non-blocking error gets one-line correction and a later check; it does not replace the main target.
+- Correct an unrelated local error in one line and note it in its own ledger cell. Count an independently correct target toward its streak and preserve the main line's message complexity. Use at most one immediate repair and one delayed check on that local point per segment.
 - After a blocking error, lower one variable and use the smallest useful hint.
 - Run at most two transfer repairs per point per segment. Each changes noun, scene, purpose, or format; never repeat the corrected sentence. Increment the repair counter only after the learner answers and the repair response is evaluated. Merely presenting a repair question produces no evidence and consumes no evaluated repair.
 - If the point still fails, lower later load and park it. Do not drill-loop.
@@ -161,7 +167,7 @@ Movement:
 ## 8. Per-answer action
 
 - Independent success at the edge: continue or raise one variable after the second consecutive success.
-- Success with a local error: correct one thing, continue the main line, and check it again two to four items later.
+- Success with a local error: apply the target streak and correct one thing. Keep the current message complexity. A short isolation item is temporary.
 - Assisted success: keep E1 and later request one unprompted retrieval.
 - Blocking failure: lower one variable and give the smallest useful hint.
 - Fresh-scene independent success: mark Pending and stop targeting directly.
@@ -170,22 +176,22 @@ Movement:
 Every four to six main-line items, and nowhere else, expose compact state:
 
 ```text
-[小结 / Checkpoint] Independent fully correct: x/y | Independent evidence: ... | Due later: ... | New words: ... | Load: ...
+[小结 / Checkpoint] Target: x/y | Whole item: a/y | Item types: ... | Due later: ... | New words: ... | Load: ...
 ```
 
 ## 9. Vocabulary and spaced review
 
-Vocabulary grows with the grammar, not on a quota, but every session introduces a few new words — a small number, each one something the scene needs. A new word appears inside the item that uses it, never as a separate list. Gloss it once in parentheses on first use, then stop glossing, and retrieve it unglossed a few items later. A word becomes active only after independent meaningful retrieval without a gloss.
+Vocabulary grows with the grammar, not on a quota, but every session introduces a few new words — a small number, each one something the scene needs. A new word appears inside the item that uses it, never as a separate list. Gloss content words outside the Active list when they appear in a prompt, except when a previously introduced word is itself the retrieval target. Void and log an item as a tutor error if an omitted background gloss was the only cause of failure. Exclude it from both rates. A word becomes active only after independent meaningful retrieval without a gloss.
 
 Scatter two or three old points through new scenes when records support it. Pending points receive unannounced later-session checks; never announce them as tests.
 
-**Stale `Learning` points.** A `Learning` point whose `Last touched` date is 14 days or more in the past is stale. At least one review slot per session goes to a stale `Learning` point, chosen by closeness to the learner's goal, as one unprompted item in a new scene. The result updates its cell either way, so points that leave the focus still return.
+**Repairs and spacing.** When there is an active repair, use at least one review slot for an unprompted retrieval in a new scene. Parked points are exempt until their unit becomes current or a slot opens. Space confirmed points farther apart after success and shorten the interval for the affected point after failure. Use well-established points as background between due checks.
 
 Record a due check only as `<point> — future session; undisclosed`. Do not store the planned wording, answer, item format, item number, or promised timing.
 
 ## 10. Advancing and ending
 
-When a point obtains real evidence, say what was independent and what remains assisted. Ask whether to consolidate, advance, or stop. The learner may stop at any time.
+When a point obtains real evidence, say what was independent and what remains assisted. The learner may stop at any time. Once the syllabus exit criteria hold, state what was completed, name the next unit and its new work, and update the unit pointer at session end. Earlier repairs continue in review.
 
 Do not end because a count or time target was reached. Do not claim mastery from assisted work.
 
@@ -198,10 +204,10 @@ Update only `records/mastery.md`, unless the learner explicitly changed a profil
 - Move levels under Section 7a, including drops after failures.
 - `Last verified`: date of the evidence that supports the current level (`—` for `Untested`). `Last touched`: date the point was last attempted, whatever the result.
 - Keep each current edge to one line of at most about 200 characters: what holds, what fails, what is unverified. No dates other than the two date columns, no sequence of events.
-- Update active and unstable vocabulary from actual retrieval. Each word appears in exactly one list, without duplicates; entries are the bare word, optionally with the learner's last wrong form in parentheses.
-- Adjust the queue from Controller evidence.
+- Update active and unstable vocabulary from actual retrieval. Each word appears in exactly one list, without duplicates; entries are the bare word, optionally with the learner's last wrong form in parentheses. Keep about 40 unstable entries relevant to the current and next unit.
+- Record the current unit, count of required points at Pending or above, and independent Output status. Tag each new ledger point with its syllabus unit. Keep up to six active targets across the main line and earlier repairs. Remove a point from active targeting when it reaches Pending or is parked. Reactivate parked points only when there is a free slot.
 - Change the route only when mastery or the stated goal materially changes.
-- Add one session-log line of at most about 600 characters: date, focus, independent-correct count, independent evidence, assisted/failed evidence, level changes, tutor errors, and next edge. Never reveal a future delayed-check prompt or position. Keep only the most recent 7 log lines; older states stay recoverable through Git history if the workspace uses Git.
+- Add one session-log line of at most about 600 characters: date, unit, both rates, item-type counts, independent evidence, assisted/failed evidence, level changes, tutor errors, and next edge. Never reveal a future delayed-check prompt or position. Keep only the most recent 7 log lines; older states stay recoverable through Git history if the workspace uses Git.
 - Update Controller state so the next session can resume accurately.
 
 Size budget: `records/mastery.md` stays under about 20,000 characters. Check it at session end; if it is over, distill cells and the unstable list back to current state. Line count is not the measure.

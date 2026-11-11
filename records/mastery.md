@@ -6,6 +6,7 @@ Evidence levels (E0–E4) are defined in `session-protocol.md` Section 7; level 
 
 ## Route
 
+- Main line: Pending onboarding or placement.
 - Short term: Pending onboarding or placement.
 - Mid term: Pending learner goal and evidence.
 - Long term: Pending learner goal.
@@ -13,13 +14,14 @@ Evidence levels (E0–E4) are defined in `session-protocol.md` Section 7; level 
 ## Current queue
 
 - Focus now: Complete onboarding.
-- Next candidates: Determined after onboarding or placement.
+- Active targets: None yet.
+- Parked: None yet.
 
 ## Mastery ledger
 
-| Point | Level | Last verified | Last touched | Current edge |
-| --- | --- | --- | --- | --- |
-| Initial placement | Untested | — | — | Complete onboarding first. |
+| Point | Unit | Level | Last verified | Last touched | Current edge |
+| --- | --- | --- | --- | --- | --- |
+| Initial placement | — | Untested | — | — | Complete onboarding first. |
 
 ## Vocabulary
 
@@ -30,8 +32,8 @@ Evidence levels (E0–E4) are defined in `session-protocol.md` Section 7; level 
 
 - Current point: None
 - Current load variable: None
-- Consecutive independent successes: 0
-- Consecutive errors or assisted successes: 0
+- Consecutive independent target successes: 0
+- Consecutive blocking failures or assisted target successes: 0
 - Transfer repair responses evaluated in current segment: 0
 - Delayed checks due: None
 
